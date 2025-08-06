@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GestionTareas.Applicaction.GestionTareas.Interface.IGestionTareas.Genery
+﻿namespace GestionTareas.Applicaction.GestionTareas.Interface.IGestionTareas.Genery
 {
-    internal class IGeneryService
+    public interface IGeneryService<T> where T : class
     {
+        Task<T> GetByIdAsync(int id);
+        Task<IEnumerable<T>> GetAllAsync();
+        Task CreateAsync(T entity);
+        Task UpdateAsync(T entity);
+        Task RemoveAsync(int id);
+
     }
 }

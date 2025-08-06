@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace GestionTareas.Domain.DTo
+namespace GestionTareas.Domain.Dto
 {
-    internal class TareaDto
+    public class TareaDTO
     {
+        public int Id { get; set; }
+        public string Titulo { get; set; }
+        public string Descripcion { get; set; }
+        public string Estado { get; set; }
+        public DateTime FechaLimite { get; set; }
+
+        // Ids para relacionar
+        public int EstudianteId { get; set; }
+        public int AdminId { get; set; }
+
+        // Nombres referenciales (opcional)
+        public string EstudianteNombre { get; set; }
+        public string AdminNombre { get; set; }
     }
 }

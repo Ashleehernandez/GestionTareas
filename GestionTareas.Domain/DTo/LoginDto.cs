@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace GestionTareas.Domain.DTo
+namespace GestionTareas.Domain.Dto
 {
-    internal class LoginDto
+    public class LoginDTo
     {
+        public string Email { get; set; }
+
+        public string PasswordHash { get; set; }
     }
 }

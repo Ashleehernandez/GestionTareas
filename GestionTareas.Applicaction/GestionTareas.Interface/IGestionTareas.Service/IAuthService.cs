@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GestionTareas.Applicaction.GestionTareas.Interface.IGestionTareas.Genery;
+using GestionTareas.Domain.GestionTareas.Entity;
 
 namespace GestionTareas.Applicaction.GestionTareas.Interface.IGestionTareas.Service
 {
-    internal class IAuthService
+    public interface IAuthService : IGeneryService<Usuarios>
     {
+        Task<Usuarios> GetByEmailAsync(string email);
     }
 }
