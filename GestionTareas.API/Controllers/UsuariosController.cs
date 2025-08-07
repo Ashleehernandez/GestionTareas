@@ -12,40 +12,23 @@ namespace GestionTareas.API.Controllers
     {
         private readonly IAuthService _authService;
         private readonly IMapper _mapper;
-        public UsuariosController(IAuthService authService , IMapper mapper)
+        public UsuariosController(IAuthService authService, IMapper mapper)
         {
             _authService = authService;
             _mapper = mapper;
         }
-        [HttpGet("{email}")]
-        public async Task<IActionResult> GetByEmail(string email)
-        {
-            try
-            {
-                var usuario = await _authService.GetByEmailAsync(email);
-                if (usuario == null)
-                {
-                    return NotFound();
-                }
-                return Ok(usuario);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error interno del servidor: {ex.Message}");
-            }
-
-        }
+      
 
         [HttpPost("Usuarios")]
         public async Task<IActionResult> Create([FromBody] UsuarioDTO usuarioDto)
         {
             try
             {
-                var usuario = _mapper.Map<Usuarios>(usuarioDto); 
+                var usuario = _mapper.Map<Usuarios>(usuarioDto);
 
                 await _authService.CreateAsync(usuario);
 
-                return CreatedAtAction(nameof(GetByEmail), new { email = usuario.Email }, usuario);
+                return Ok(usuario);
             }
             catch (Exception ex)
             {
@@ -54,7 +37,7 @@ namespace GestionTareas.API.Controllers
         }
 
         [HttpGet("All")]
-            public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
@@ -94,7 +77,7 @@ namespace GestionTareas.API.Controllers
 
                 _mapper.Map(usuarioDto, existingUsuario);
 
-                await _authService.CreateAsync(existingUsuario); 
+                await _authService.CreateAsync(existingUsuario);
                 return NoContent();
             }
             catch (Exception ex)
@@ -103,5 +86,25 @@ namespace GestionTareas.API.Controllers
             }
         }
 
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDTo loginDto)
+        {
+            try
+            {
+                var usuario = await _authService.GetByEmailyPasswordAsync(loginDto.Email, loginDto.Password);
+                if (usuario == null)
+                {
+                    return Unauthorized("Credenciales inválidas.");
+                }
+                return Ok(usuario);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error interno del servidor: {ex.Message}");
+            }
+        }
     }
 }
+
+

@@ -5,6 +5,6 @@ namespace GestionTareas.Applicaction.GestionTareas.Interface.IGestionTareas.Repo
 {
     public interface IAuthRepository : IGeneryRepository<Usuarios>
     {
-        Task<Usuarios> GetByEmailAsync(string email);
+        Task<Usuarios> GetByEmailyPasswordAsync(string email , string PasswordHash);
     }
 }

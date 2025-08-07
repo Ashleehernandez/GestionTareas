@@ -5,6 +5,7 @@ namespace GestionTareas.Applicaction.GestionTareas.Interface.IGestionTareas.Serv
 {
     public interface IAuthService : IGeneryService<Usuarios>
     {
-        Task<Usuarios> GetByEmailAsync(string email);
+        
+        Task<Usuarios> GetByEmailyPasswordAsync(string email , string PasswordHash);
     }
 }

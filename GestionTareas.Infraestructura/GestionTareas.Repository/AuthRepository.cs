@@ -16,16 +16,16 @@ namespace GestionTareas.Infraestructura.GestionTareas.Repository
 
         }
 
-        public async Task<Usuarios> GetByEmailAsync(string email)
+        public Task<Usuarios> GetByEmailyPasswordAsync(string email, string PasswordHash)
         {
             try
             {
-                return await _dbSet.FirstOrDefaultAsync(u => u.Email == email);
+
+                return _dbSet.FirstOrDefaultAsync(u => u.Email == email && u.PasswordHash == PasswordHash);
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al obtener el usuario por email", ex);
-
+                throw new Exception("Error al obtener el usuario por email y contraseña", ex);
             }
         }
     }

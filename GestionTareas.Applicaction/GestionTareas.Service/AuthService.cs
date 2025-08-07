@@ -15,17 +15,16 @@ namespace GestionTareas.Applicaction.GestionTareas.Service
             _authRepository = authRepository;
         }
 
-        public Task<Usuarios> GetByEmailAsync(string email)
+        public Task<Usuarios> GetByEmailyPasswordAsync(string email, string PasswordHash)
         {
             try
             {
-                return _authRepository.GetByEmailAsync(email);
 
+                return _authRepository.GetByEmailyPasswordAsync(email, PasswordHash);
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al obtener el usuario por email", ex);
-
+                throw new Exception("Error al obtener el usuario por email y contraseña", ex);
             }
         }
     }
