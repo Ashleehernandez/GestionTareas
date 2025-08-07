@@ -1,9 +1,10 @@
-﻿
-
+﻿using GestionTareas.Applicaction.GestionTareas.Interface.IGestionTareas.Genery;
+using GestionTareas.Domain.GestionTareas.Entity;
 
 namespace GestionTareas.Applicaction.GestionTareas.Interface.IGestionTareas.Repository
 {
-    internal class IAuthRepository
+    public interface IAuthRepository : IGeneryRepository<Usuarios>
     {
+        Task<Usuarios> GetByEmailyPasswordAsync(string email , string PasswordHash);
     }
 }
