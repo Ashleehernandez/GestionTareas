@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using GestionTareas.Domain.GestionTareas.Entity.Enum;
+using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GestionTareas.Domain.GestionTareas.Entity
@@ -23,13 +25,20 @@ namespace GestionTareas.Domain.GestionTareas.Entity
 
         [Required]
         [StringLength(20)]
-        public string Estado { get; set; } = "Pendiente";
+        public EstadoTarea Estado { get; set; } = EstadoTarea.Pendiente;
 
         [Required]
         public int EstudianteId { get; set; }
 
         [Required]
         public int AdminId { get; set; }
+
+        [MaxLength(500)]
+        [NotMapped]
+        public IFormFile ArchivoPDF  { get; set; }
+
+        [Range(0, 100)]
+        public decimal? Calificacion { get; set; }
 
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
 

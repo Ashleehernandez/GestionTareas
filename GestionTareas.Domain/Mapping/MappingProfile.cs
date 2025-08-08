@@ -8,15 +8,24 @@ namespace GestionTareas.Domain.Mapping
     {
         public MappingProfile()
         {
+            //Mapping For Usuarios and UsuarioDTO
             CreateMap<Usuarios, UsuarioDTO>();
             CreateMap<UsuarioDTO, Usuarios>();
             CreateMap<Usuarios , LoginDTo>();
             CreateMap<LoginDTo, Usuarios>();
 
 
-            CreateMap<Tareas, TareaDTO>()
-                .ForMember(dest => dest.EstudianteNombre, opt => opt.MapFrom(src => src.Estudiante.NombreCompleto))
-                .ForMember(dest => dest.AdminNombre, opt => opt.MapFrom(src => src.Admin.NombreCompleto));
+
+
+           //Mapping For Tareas and TareaDTO
+            CreateMap<Tareas, TareaDTO>();
+            CreateMap<TareaDTO, Tareas>();
+            CreateMap<Tareas, TareaEditarDTO>();
+            CreateMap<TareaEditarDTO, Tareas>();
+            CreateMap<Tareas, TareaRespuestaEstudianteDTO>();
+            CreateMap<TareaRespuestaEstudianteDTO, Tareas>();
+            CreateMap<TareaCalificarDTO , Tareas>();
+            CreateMap<Tareas, TareaCalificarDTO>();
         }
     }
 }

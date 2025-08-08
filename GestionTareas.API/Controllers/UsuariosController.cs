@@ -77,7 +77,7 @@ namespace GestionTareas.API.Controllers
 
                 _mapper.Map(usuarioDto, existingUsuario);
 
-                await _authService.CreateAsync(existingUsuario);
+                await _authService.UpdateAsync(existingUsuario);
                 return NoContent();
             }
             catch (Exception ex)

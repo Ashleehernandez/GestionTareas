@@ -14,8 +14,8 @@ namespace GestionTareas.Domain.Dto
         public int EstudianteId { get; set; }
         public int AdminId { get; set; }
 
-        // Nombres referenciales (opcional)
-        public string EstudianteNombre { get; set; }
-        public string AdminNombre { get; set; }
+        //// Nombres referenciales (opcional)
+        //public string EstudianteNombre { get; set; }
+        //public string AdminNombre { get; set; }
     }
 }

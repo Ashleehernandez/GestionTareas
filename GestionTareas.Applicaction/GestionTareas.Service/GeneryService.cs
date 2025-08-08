@@ -67,22 +67,22 @@ namespace GestionTareas.Applicaction.GestionTareas.Service
            
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task<T> UpdateAsync(T entity)
         {
-            var existingEntity = await _repository.GetByIdAsync((int)entity.GetType().GetProperty("Id").GetValue(entity));
-            if (existingEntity == null)
-            {
-                throw new Exception("La entidad no existe en la base de datos");
-            }
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
             try
             {
-                await _repository.Update(entity);
+               return  await _repository.UpdateAsyncc(entity);
+                
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al actualizar la entidad", ex);
 
+                throw new Exception("Error al editar ");
             }
+
         }
     }
 }
