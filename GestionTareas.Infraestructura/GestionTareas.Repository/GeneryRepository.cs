@@ -1,6 +1,7 @@
 ﻿using GestionTareas.Applicaction.GestionTareas.Interface.IGestionTareas.Genery;
 using GestionTareas.Infraestructura.GestionTareas.Context.DB;
 using Microsoft.EntityFrameworkCore;
+using System.CodeDom.Compiler;
 
 namespace GestionTareas.Infraestructura.GestionTareas.Repository
 {
@@ -77,17 +78,27 @@ namespace GestionTareas.Infraestructura.GestionTareas.Repository
             }
         }
 
-        public async Task Update(T entity)
+        public async Task<T> UpdateAsyncc(T entity)
         {
-            try { 
-                _dbSet.Update(entity);
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity), "La entidad no puede ser nula.");
+            }
+
+            try
+            {
+                _context.Entry(entity).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
+                return entity;
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw new InvalidOperationException("Error de concurrencia: la entidad fue modificada o eliminada por otro usuario.", ex);
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al actualizar la entidad", ex);
+                throw new Exception("Error al editar la entidad. Verifique los detalles del error para más información.", ex);
             }
-
         }
     }
 }

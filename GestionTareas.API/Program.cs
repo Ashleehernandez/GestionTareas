@@ -23,7 +23,16 @@ namespace GestionTareas.API
                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("PermitirFrontend",
+                    policy =>
+                    {
+                        policy.WithOrigins("http://127.0.0.1:5500")
+                              .AllowAnyHeader()
+                              .AllowAnyMethod();
+                    });
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -32,6 +41,8 @@ namespace GestionTareas.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseCors("PermitirFrontend");
+
 
             app.UseHttpsRedirection();
 

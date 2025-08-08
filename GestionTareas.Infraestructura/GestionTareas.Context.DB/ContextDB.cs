@@ -1,4 +1,5 @@
 ﻿using GestionTareas.Domain.GestionTareas.Entity;
+using GestionTareas.Domain.GestionTareas.Entity.Enum;
 using Microsoft.EntityFrameworkCore;
 
 namespace GestionTareas.Infraestructura.GestionTareas.Context.DB
@@ -9,8 +10,8 @@ namespace GestionTareas.Infraestructura.GestionTareas.Context.DB
         {
         }
 
-        DbSet<Usuarios> Usuarios { get; set; }
-        DbSet<Tareas> Tareas { get; set; }
+       public DbSet<Usuarios> Usuarios { get; set; }
+       public DbSet<Tareas> Tareas { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -56,6 +57,14 @@ namespace GestionTareas.Infraestructura.GestionTareas.Context.DB
                       .HasForeignKey(t => t.AdminId)
                       .OnDelete(DeleteBehavior.NoAction)
                       .HasConstraintName("FK_Tareas_Admin");
+
+               modelBuilder.Entity<Tareas>()
+                .Property(t => t.Estado)
+                .HasConversion<string>();
+
+                modelBuilder.Entity<Tareas>()
+                   .Property(t => t.Calificacion)
+                   .HasColumnType("decimal(18,2)");
             });
 
             // Datos iniciales (Seed Data)
@@ -116,7 +125,7 @@ namespace GestionTareas.Infraestructura.GestionTareas.Context.DB
                     Titulo = "Tarea de Matemáticas Avanzadas",
                     Descripcion = "Resolver los ejercicios del capítulo 5: Derivadas e Integrales",
                     FechaLimite = DateTime.Now.AddDays(10),
-                    Estado = "Pendiente",
+                    Estado = EstadoTarea.Pendiente,
                     EstudianteId = 2,
                     AdminId = 1,
                     FechaCreacion = DateTime.Now
@@ -127,7 +136,7 @@ namespace GestionTareas.Infraestructura.GestionTareas.Context.DB
                     Titulo = "Ensayo de Historia Dominicana",
                     Descripcion = "Escribir un ensayo de 1000 palabras sobre la independencia dominicana",
                     FechaLimite = DateTime.Now.AddDays(15),
-                    Estado = "Pendiente",
+                    Estado = EstadoTarea.Pendiente,
                     EstudianteId = 2,
                     AdminId = 1,
                     FechaCreacion = DateTime.Now
@@ -138,7 +147,7 @@ namespace GestionTareas.Infraestructura.GestionTareas.Context.DB
                     Titulo = "Proyecto de Ciencias Naturales",
                     Descripcion = "Realizar experimento sobre el ciclo del agua y presentar informe",
                     FechaLimite = DateTime.Now.AddDays(8),
-                    Estado = "Pendiente",
+                    Estado = EstadoTarea.Pendiente,
                     EstudianteId = 3,
                     AdminId = 1,
                     FechaCreacion = DateTime.Now
@@ -149,7 +158,7 @@ namespace GestionTareas.Infraestructura.GestionTareas.Context.DB
                     Titulo = "Traducción de Inglés",
                     Descripcion = "Traducir el texto de las páginas 45-50 del libro de inglés",
                     FechaLimite = DateTime.Now.AddDays(5),
-                    Estado = "Pendiente",
+                    Estado = EstadoTarea.Pendiente,
                     EstudianteId = 4,
                     AdminId = 1,
                     FechaCreacion = DateTime.Now
@@ -160,7 +169,7 @@ namespace GestionTareas.Infraestructura.GestionTareas.Context.DB
                     Titulo = "Análisis de Programación",
                     Descripcion = "Crear un programa en C# que implemente algoritmos de ordenamiento",
                     FechaLimite = DateTime.Now.AddDays(12),
-                    Estado = "Completada",
+                    Estado = EstadoTarea.Pendiente,
                     EstudianteId = 3,
                     AdminId = 1,
                     FechaCreacion = DateTime.Now.AddDays(-5),

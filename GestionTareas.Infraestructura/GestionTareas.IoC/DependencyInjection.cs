@@ -24,6 +24,13 @@ namespace GestionTareas.Infraestructura.GestionTareas.IoC
             // Add Services
             services.AddScoped(typeof(IGeneryService<>), typeof(GeneryService<>));
             services.AddScoped<IAuthService, AuthService>();
+
+            //Add Service Tarea
+            services.AddScoped(typeof(IGeneryService<>), typeof(GeneryService<>));
+            services.AddScoped<ITareaService , TareaService>();
+            //Add Repository Tarea
+            services.AddScoped(typeof(IGeneryRepository<>), typeof(GeneryRepository<>));
+            services.AddScoped<ITareaRepository, TareaRepository>();
             return services;
         }
     }
