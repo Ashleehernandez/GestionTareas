@@ -1,3 +1,6 @@
+using GestionTareas.Infraestructura.GestionTareas.Context.DB;
+using GestionTareas.Infraestructura.GestionTareas.IoC;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestionTareas.API
 {
@@ -14,6 +17,22 @@ namespace GestionTareas.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddGestionTareasInfrastructure(builder.Configuration);
+
+            builder.Services.AddDbContext<ContextDB>(options =>
+               options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("PermitirFrontend",
+                    policy =>
+                    {
+                        policy.WithOrigins("http://127.0.0.1:5500")
+                              .AllowAnyHeader()
+                              .AllowAnyMethod();
+                    });
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -22,6 +41,8 @@ namespace GestionTareas.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseCors("PermitirFrontend");
+
 
             app.UseHttpsRedirection();
 
